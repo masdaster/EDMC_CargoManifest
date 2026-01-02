@@ -127,16 +127,20 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
 				cargoCap += 4
 			elif state['Modules'][i]['Item'] == 'int_cargorack_size3_class1':
 				cargoCap += 8
-			elif state['Modules'][i]['Item'] == 'int_cargorack_size4_class1':
+			elif state['Modules'][i]['Item'] == 'int_cargorack_size4_class1' or state['Modules'][i]['Item'] == 'int_corrosionproofcargorack_size4_class1':
 				cargoCap += 16
-			elif state['Modules'][i]['Item'] == 'int_cargorack_size5_class1':
+			elif state['Modules'][i]['Item'] == 'int_cargorack_size5_class1' or state['Modules'][i]['Item'] == 'int_corrosionproofcargorack_size5_class1':
 				cargoCap += 32
-			elif state['Modules'][i]['Item'] == 'int_cargorack_size6_class1':
+			elif state['Modules'][i]['Item'] == 'int_cargorack_size6_class1' or state['Modules'][i]['Item'] == 'int_corrosionproofcargorack_size6_class1':
 				cargoCap += 64
 			elif state['Modules'][i]['Item'] == 'int_cargorack_size7_class1':
 				cargoCap += 128
+			elif state['Modules'][i]['Item'] == 'int_largecargorack_size7_class1':
+				cargoCap += 192
 			elif state['Modules'][i]['Item'] == 'int_cargorack_size8_class1':
 				cargoCap += 256
+			elif state['Modules'][i]['Item'] == 'int_largecargorack_size8_class1':
+				cargoCap += 384
 
 		this.cargoCapacity = cargoCap
 		update_display()
