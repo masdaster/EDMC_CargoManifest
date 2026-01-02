@@ -48,8 +48,8 @@ def plugin_app(parent):
 	this.frame = tk.Frame(parent)
 	this.title = tk.Label(this.frame, text="Cargo Manifest")
 	this.updateIndicator = HyperlinkLabel(this.frame, text="Update available", anchor=tk.W, url='https://github.com/RemainNA/cargo-manifest/releases')
-	this.manifest = tk.Label(this.frame)
-	this.title.grid(row = 0, column = 0)
+	this.manifest = tk.Label(this.frame, justify = "left")
+	this.title.grid(row = 0, column = 0, sticky = 'W')
 	if this.newest == 0 and not config.get_bool("cm_hideUpdate"):
 		this.updateIndicator.grid(padx = 5, row = 0, column = 1)
 	return this.frame
@@ -147,11 +147,10 @@ def update_display():
 	currentCargo = 0
 	cumulativeMaxSell = 0
 	for i in this.inventory:
-		line = ""
 		if i['Name'] in this.items:
-			line = "{quant} {name}".format(quant = i['Count'], name=this.items[i['Name']]['name'])
+			line = "{quant:03} {name}".format(quant = i['Count'], name=this.items[i['Name']]['name'].strip())
 		else:
-			line = "{quant} {name}".format(quant = i['Count'], name=(i['Name_Localised'] if 'Name_Localised' in i else i['Name']))
+			line = "{quant:03} {name}".format(quant = i['Count'], name=(i['Name_Localised'] if 'Name_Localised' in i else i['Name']).strip())
 		if 'Stolen' in i and i['Stolen'] > 0:
 			line = line+", {} stolen".format(i['Stolen'])
 		if 'MissionID' in i:
@@ -169,11 +168,10 @@ def update_display():
 		manifest = manifest+"\n\nTotal max sell: {:,} cr".format(cumulativeMaxSell)
 	
 	this.title["text"] = "Cargo Manifest ({curr}/{cap})".format(curr = currentCargo, cap = this.cargoCapacity)
-	this.manifest["text"] = manifest.strip() # Remove leading newline
-	this.title.grid()
+	this.manifest["text"] = manifest[1:]
 	if this.newest == 0:
-		this.manifest.grid(columnspan=2)
+		this.manifest.grid(columnspan=2, sticky = 'W')
 	else:
-		this.manifest.grid()
+		this.manifest.grid(sticky = 'W')
 	if manifest.strip() == "":
 		this.manifest.grid_remove()
